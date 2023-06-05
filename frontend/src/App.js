@@ -2,7 +2,7 @@ import React from 'react'
 
 const App = () => {
   return (
-    <h1>Welcome to Gooeeh</h1>
+    <h1>Welcome to Goueey?, or Gouvey?, or...</h1>
   )
 }
 
