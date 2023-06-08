@@ -4,6 +4,7 @@ import './assets/styles/index.css';
 import './assets/styles/bootstrap.custom.css';
 import App from './App';
 import HomePage from './pages/HomePage';
+import ProductPage from './pages/ProductPage';
 import reportWebVitals from './reportWebVitals';
 import {
   createBrowserRouter,
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage />,
+      },
+      {
+        path: "/product/:id",
+        element: <ProductPage />,
       },
     ],
   },
