@@ -4,11 +4,13 @@
   "description": "ecommerce application using the MERN stack",
   "type": "module",
   "main": "server.js",
-
   "scripts": {
     "start": "node backend/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "codeserg",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
