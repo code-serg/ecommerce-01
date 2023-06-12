@@ -29,8 +29,8 @@ const reviewSchema = mongoose.Schema({
   timestamps: true,
 });
 
-
-const productSchema = mongoose.Schema({
+// Define the productSchema
+const productSchema = new mongoose.Schema({
   // user who created the product
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -38,6 +38,7 @@ const productSchema = mongoose.Schema({
     // reference to the User model
     ref: 'User',
   },
+  // name will be a string that contains the name of the product
   name: {
     type: String,
     required: true,
@@ -92,6 +93,7 @@ const productSchema = mongoose.Schema({
   timestamps: true,
 });
 
+// Compile the model 'Product' from the schema 'productSchema'
 const Product = mongoose.model('Product', productSchema);
 
 export default Product;
