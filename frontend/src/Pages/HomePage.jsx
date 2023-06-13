@@ -4,13 +4,17 @@ import { useGetProductsQuery } from '../slices/productsApiSlice';
 
 
 const HomePage = () => {
-  const { data: products = [], isLoading, error } = useGetProductsQuery();
+  const { data: products, isLoading, error } = useGetProductsQuery();
 
   return (
     <>
-      { isLoading ? (<h2>Loading...</h2>) : error ? (<div>{ error?.data?.message || error.error } </div>) : (
+      { isLoading ? (
+          <h2>Loading...</h2>
+        ) : error ? (
+          <div> { error?.data?.message || error.error } </div>
+        ) : (
         <>
-          <h1>Latest Products</h1>
+          <h2>Latest Products</h2>
           <Row>
             { products.map(product => (
               <Col key={product._id} sm={12} md={6} lg={4} xl={3} >
@@ -19,8 +23,8 @@ const HomePage = () => {
             ))}
           </Row>
         </>
-      ) }
-
+        ) 
+      }
     </>
   )
 }
