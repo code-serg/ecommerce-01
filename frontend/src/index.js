@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './assets/styles/index.css';
 import './assets/styles/bootstrap.custom.css';
 import { Provider } from 'react-redux';
-import store from './store';
+import store from './store'; // This file configures the Redux store using Redux Toolkit's
 import App from './App';
 import HomePage from './pages/HomePage';
 import ProductPage from './pages/ProductPage';

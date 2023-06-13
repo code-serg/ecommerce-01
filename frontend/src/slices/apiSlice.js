@@ -16,5 +16,5 @@ const baseQuery = fetchBaseQuery({ baseUrl: BASE_URL });
 export const apiSlice = createApi({
   baseQuery,
   tagTypes: ['Product', 'User', 'Order'], // Define tag types for generated hooks
-  endpoints: (builder) => ({}), // Define your API endpoints within this function
+  endpoints: (builder) => ({}), // Instead of defining the API endpoints here, we'll define them in child slices using apiSlice.injectEndpoints
 });
