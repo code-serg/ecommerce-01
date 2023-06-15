@@ -19,6 +19,7 @@ const cartSlice = createSlice({
       if (existItem) {
         // If the item already exists in the cart, replace it with the updated item
         state.cartItems = state.cartItems.map((x) => x._id === existItem._id ? item : x);
+        // TODO: qty is not updating properly in the cart
       } else {
         // If the item doesn't exist in the cart, add it to the cartItems array
         state.cartItems = [...state.cartItems, item];
