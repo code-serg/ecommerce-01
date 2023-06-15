@@ -1,6 +1,4 @@
-// Controller for products - methods to handle requests and generate responses.
-
-import asyncHandler from "../middleware/asyncHandler.js"; // the asyncHandler wrapper function is used to catch any errors that might occur, passing them to the Express error handling middleware
+import asyncHandler from "../middleware/asyncHandler.js"; // wrapper function - catches any errors and passes to the Express error handling middleware
 import Product from "../models/productModel.js";
 
 // @desc    Fetch all products
