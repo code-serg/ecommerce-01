@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, ListGroup, Image, Form, Button, Card } from "react-bootstrap";
 import { FaTrash } from "react-icons/fa";
-import { addToCart } from "../slices/cartSlice";
+import { addToCart, removeFromCart } from "../slices/cartSlice";
 import Message from "../components/Message";
 
 
@@ -15,7 +15,10 @@ const CartPage = () => {
 
   const addToCartHandler = async (item, qty) => {
     dispatch(addToCart({ ...item, qty }));
-    navigate('/cart');
+  };
+
+  const removeFromCartHandler = async (id) => {
+    dispatch(removeFromCart(id));
   };
 
   return (
@@ -57,7 +60,7 @@ const CartPage = () => {
                     <Button
                       type="button"
                       variant="light"
-                      onClick={() => {}}
+                      onClick={() => removeFromCartHandler(item._id)}
                     >
                       <FaTrash />
                     </Button>
