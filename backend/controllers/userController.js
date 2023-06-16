@@ -12,7 +12,7 @@ const loginUser = asyncHandler(async (req, res) => {
   if (user && (await user.matchPassword(password))) { //is user in the db? and password matches? - matchPassword is a method in the user model
     generateToken(res, user._id);
 
-    res.json({
+    res.status(200).json({
       _id: user._id,
       name: user.name,
       email: user.email,
@@ -24,7 +24,7 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Register a new user
+// @desc    Register a new user 
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
@@ -68,21 +68,56 @@ const logoutUser = asyncHandler(async (req, res) => {
     expires: new Date(0),
   });
 
-  res.status(201).json({ message: 'Logout successful'});
+  res.status(200).json({ message: 'Logout successful'});
 });
 
 // @desc    Get user profile
 // @route   GET /api/users/profile
 // @access  Private
 const getUserProfile = asyncHandler(async (req, res) => {
-  res.send('Get user profile');
+  const user = await User.findById(req.user._id); // req.user is set in the authUser middleware - see authMiddleware.js
+
+  if (user) {
+    res.status(200).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
 });
 
 // @desc    Update user profile
 // @route   PUT /api/users/profile // no need to specify the id. (The user is logged in and the token has all the info we need)
 // @access  Private
 const updateUserProfile = asyncHandler(async (req, res) => {
-  res.send('Update user profile');
+  const user = await User.findById(req.user._id); // req.user is set in the authUser middleware - see authMiddleware.js
+
+  if (user) {
+    user.name = req.body.name || user.name; // if req.body.name is undefined, then use the existing user.name
+    user.email = req.body.email || user.email;
+
+    if (req.body.password) { // if the password is being updated
+      user.password = req.body.password;
+    }
+
+    const updatedUser = await user.save(); // save the updated user to the database
+
+    generateToken(res, updatedUser._id);
+
+    res.status(200).json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
 });
 
 // @desc    Get all users

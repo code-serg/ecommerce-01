@@ -11,7 +11,6 @@ const authUser = asyncHandler(async (req, res, next) => {
   if (token) {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      console.log("decoded:" + decoded);
       req.user = await User.findById(decoded._id).select('-password'); // select everything except the password, set the user to the request object
       next();
     } catch (error) {
