@@ -12,6 +12,11 @@ connectDB();
 
 const app = express();
 
+// Accept JSON data in the body
+app.use(express.json());
+// Accept form data in the body
+app.use(express.urlencoded({ extended: true }));
+
 app.get('/', (req, res) => {
   res.send('API server is running');
 });

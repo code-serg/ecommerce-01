@@ -1,23 +1,21 @@
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
+
 
 const userSchema = new mongoose.Schema({
-  // name will be a string that contains the name of the user
   name: {
     type: String,
     required: true,
   },
-  // email will be a string that contains the email of the user
   email: {
     type: String,
     required: true,
     unique: true,
   },
-  // password will be a string that contains the password of the user
   password: {
     type: String,
     required: true,
   },
-  // isAdmin will be a boolean that contains whether the user is an admin or not
   isAdmin: {
     type: Boolean,
     required: true,
@@ -28,7 +26,12 @@ const userSchema = new mongoose.Schema({
   timestamps: true,
 });
 
-// Define the User model
+// Add method to the userSchema to compare the entered password with the hashed password in the database
+userSchema.methods.matchPassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
+
+// Define a mongoose model named 'User' using the 'userSchema'
 const User = mongoose.model('User', userSchema);
 
 export default User;
