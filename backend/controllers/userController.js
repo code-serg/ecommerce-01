@@ -1,6 +1,6 @@
 import asyncHandler from '../middleware/asyncHandler.js'; // wrapper function - catches any errors and passes to the Express error handling middleware
 import User from '../models/userModel.js';
-import jwt from 'jsonwebtoken';
+import generateToken from '../utils/generateToken.js';
 
 // @desc    Auth user & get token
 // @route   POST /api/users/login
@@ -9,21 +9,8 @@ const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email }); // findOne() is a mongoose method
 
-  if (user && (await user.matchPassword(password))) { // in the db? and password matches?
-    const token = jwt.sign({ // create a token
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      isAdmin: user.isAdmin
-    }, process.env.JWT_SECRET, { expiresIn: '10d' }); 
-
-    // Set JWT as HTTP-only cookie
-    res.cookie('jwt', token, { 
-      httpOnly: true,
-      secure: process.env.NODE_ENV !== 'development', // only send cookie over https if not in development
-      sameSite: 'strict',
-      maxAge: 1000 * 60 * 60 * 24 * 10 // 10 days
-    });
+  if (user && (await user.matchPassword(password))) { //is user in the db? and password matches? - matchPassword is a method in the user model
+    generateToken(res, user._id);
 
     res.json({
       _id: user._id,
@@ -41,14 +28,47 @@ const loginUser = asyncHandler(async (req, res) => {
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-  res.send('register user');
+  const { name, email, password } = req.body;
+
+  const userExist = await User.findOne({ email });
+
+  if (userExist) {
+    res.status(400); // 400 - bad request
+    throw new Error('User already exists');
+  } 
+
+  // userSchema.pre('save' ... ) will hash the password before saving the user to the database - See userModel.js
+  const user = await User.create({
+    name,
+    email,
+    password,
+  });
+
+  // If user is created successfully...
+  if (user) {
+    generateToken(res, user._id);
+
+    res.status(201).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+    });
+  } else {
+    res.status(400);
+    throw new Error('Invalid user data');
+  }
 });
 
 // @desc    Logout user / clear cookie
 // @route   POST /api/users/logout
 // @access  Private
 const logoutUser = asyncHandler(async (req, res) => {
-  res.send('logout user');
+    res.cookie('jwt', '', { // clear cookie
+    httpOnly: true,
+    expires: new Date(0),
+  });
+
+  res.status(201).json({ message: 'Logout successful'});
 });
 
 // @desc    Get user profile
