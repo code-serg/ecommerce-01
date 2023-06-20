@@ -1,3 +1,6 @@
+// Desc: Redux slice for the cart
+// This slice is used to store cart data in the Redux store and localStorage
+
 import { createSlice } from '@reduxjs/toolkit';
 import { updateCart } from '../utils/cartUtils'; // Update the cart data, and put it in localStorage
 
@@ -36,8 +39,8 @@ const cartSlice = createSlice({
   }
 });
 
-
+// Extract the action creators from the cart slice
 export const { addToCart, removeFromCart } = cartSlice.actions;
 
-// Export the cartSlice reducer
+// Export the cartSlice reducer into the store - See store.js
 export default cartSlice.reducer;
