@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import store from './store'; // This file configures the Redux store using Redux Toolkit's
 import App from './App';
 import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage';
 import ProductPage from './pages/ProductPage';
 import CartPage from './pages/CartPage';
 import reportWebVitals from './reportWebVitals';
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "/cart",
         element: <CartPage />,
+      },
+      {
+        path: "/login",
+        element: <LoginPage />,
       },
     ],
   },
