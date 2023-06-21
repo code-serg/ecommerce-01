@@ -5,7 +5,7 @@ import { Form, Button, Row, Col } from 'react-bootstrap';
 import FormContainer from '../components/FormContainer';
 import Loader from '../components/Loader';
 import { useLoginMutation } from '../slices/usersApiSlice';
-import { setCredentials } from '../slices/loginSlice';
+import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
 
 const LoginPage = () => {
@@ -19,7 +19,7 @@ const LoginPage = () => {
   // response is either the user object or an error object
   const [login, {isLoading}] = useLoginMutation(); 
 
-  const { userInfo } = useSelector((state) => state.login); // get userInfo from Redux store
+  const { userInfo } = useSelector((state) => state.auth); // get userInfo from Redux store
 
   // define the redirect param if user is logged in - get it from the URL
   const { search } = useLocation();  

@@ -8,9 +8,9 @@ const initialState = {
   userInfo: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null,
 }
 
-// Create the login slice using createSlice from Redux Toolkit
-const loginSlice = createSlice({
-  name: 'login', // Name of the slice
+// Create the authentication slice using createSlice from Redux Toolkit
+const authSlice = createSlice({
+  name: 'auth', // Name of the slice
   initialState,
   reducers: {
     // Reducer for setting user credentials
@@ -27,7 +27,7 @@ const loginSlice = createSlice({
 });
 
 // Extract the action creators from the login slice
-export const { setCredentials, logout } = loginSlice.actions;
+export const { setCredentials, logout } = authSlice.actions;
 
 // Export the login reducer into the store - See store.js
-export default loginSlice.reducer;
+export default authSlice.reducer;

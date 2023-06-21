@@ -4,12 +4,12 @@ import { FaShoppingCart, FaUser } from 'react-icons/fa';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';  
 import { useLogoutMutation } from '../slices/usersApiSlice';
-import { logout } from '../slices/loginSlice';
+import { logout } from '../slices/authSlice';
 import logo from '../assets/logo.png';
 
 const Header = () => {
   const { cartItems } = useSelector((state) => state.cart); // 'cart' - cartSliceReducer key in store.js 
-  const { userInfo } = useSelector((state) => state.login); // 'login' - loginSliceReducer key in store.js 
+  const { userInfo } = useSelector((state) => state.auth); // 'auth' - authSliceReducer key in store.js 
 
   const dispatch = useDispatch(); 
   const navigate = useNavigate();
