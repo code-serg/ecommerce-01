@@ -3,9 +3,9 @@
  * It configures the base query and defines the API endpoints.
  * The generated API slice provides a convenient way to handle data fetching and caching in the Redux application.
  * In this app, we'll use apiSlice as the parent slice. Other slices will be created as child slices of apiSlice.
+ * Calls to the backend server are made using this slice along with child slices (usersApiSlice.js etc).
  */
 
-// Import necessary dependencies
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { BASE_URL } from '../constants';
 
