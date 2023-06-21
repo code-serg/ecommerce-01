@@ -4,20 +4,22 @@ import { useDispatch, useSelector } from 'react-redux'; // dispatch actions and 
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import FormContainer from '../components/FormContainer';
 import Loader from '../components/Loader';
-import { useLoginMutation } from '../slices/usersApiSlice';
+import { useRegisterMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
 
-const LoginPage = () => {
+const RegisterPage = () => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const dispatch = useDispatch(); 
   const navigate = useNavigate();
   
   // call the login API endpoint defined in usersApiSlice.js, which in turn calls the login controller in backend/controllers/userController.js
   // response is either the user object or an error object
-  const [login, {isLoading}] = useLoginMutation(); 
+  const [register, {isLoading}] = useRegisterMutation(); 
 
   const { userInfo } = useSelector((state) => state.auth); // get userInfo from Redux store
 
@@ -36,19 +38,34 @@ const LoginPage = () => {
   const submitHandler = async (e) => {
     e.preventDefault(); // prevent page from refreshing
 
-    try {
-      const res = await login({ email, password }).unwrap(); 
-      dispatch(setCredentials({...res, })); // set credentials in Redux store and localStorage
-      navigate(redirect); 
-    } catch (error) {
-      toast.error(error?.data?.message || error?.error);
+    if (password !== confirmPassword) {
+      toast.error('Passwords do not match');
+      return;
+    } else {
+      try {
+        const res = await register({name, email, password }).unwrap(); 
+        dispatch(setCredentials({...res, })); // set credentials in Redux store and localStorage
+        navigate(redirect); 
+      } catch (error) {
+        toast.error(error?.data?.message || error?.error);
+      }
     }
   }
 
   return (
     <FormContainer>
-      <h2>Sign In</h2>
+      <h2>Register</h2>
       <Form onSubmit={submitHandler}>
+        <Form.Group className="my-3" controlId="name">
+          <Form.Label>Name</Form.Label>
+          <Form.Control
+            type="name"
+            placeholder="Enter name"
+            value={name}
+            onChange={(e) => setName(e.target.value)} // update name state
+          />
+        </Form.Group>
+
         <Form.Group className="my-3" controlId="email">
           <Form.Label>Email Address</Form.Label>
           <Form.Control
@@ -69,17 +86,27 @@ const LoginPage = () => {
           />
         </Form.Group>
 
+        <Form.Group className="my-3" controlId="confirmPassword">
+          <Form.Label>Confirm Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Enter password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)} // confirm password state
+          />
+        </Form.Group>
+
         <Button type="submit" disabled={isLoading} variant="primary" className="mt-2">
-          Sign In
+          Register
         </Button>
         { isLoading && <Loader /> }
       </Form>
 
       <Row className="py-3">
         <Col>
-          New Customer? {' '}
-          <Link to={redirect ? `/register?redirect=${redirect}` : '/redirect'}>
-            Register
+          Already Have an Account? {' '}
+          <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>
+            Login
           </Link>
         </Col>
       </Row>
@@ -87,4 +114,4 @@ const LoginPage = () => {
   )
 }
 
-export default LoginPage;
+export default RegisterPage;
