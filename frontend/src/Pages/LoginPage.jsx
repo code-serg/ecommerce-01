@@ -29,7 +29,7 @@ const LoginPage = () => {
   // if user is logged in, then redirect
   useEffect(() => {
     if (userInfo) {
-      navigate(redirect); // redirect to home page if user is logged in
+      navigate(redirect);
     }
   }, [userInfo, redirect, navigate]); // navigate, redirect, and userInfo are dependencies
   

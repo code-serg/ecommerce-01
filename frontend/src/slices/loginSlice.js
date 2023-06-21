@@ -19,7 +19,10 @@ const loginSlice = createSlice({
       localStorage.setItem('userInfo', JSON.stringify(action.payload)); // Store user info in localStorage
     },
     // Reducer for logging out
-    logout: {}, // No specific logic defined for logout yet
+    logout: (state, action) => {
+      state.userInfo = null; // Remove user info from the state
+      localStorage.removeItem('userInfo'); // Remove user info from localStorage
+    },
   },
 });
 
