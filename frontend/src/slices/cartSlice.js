@@ -42,12 +42,17 @@ const cartSlice = createSlice({
       state.shippingAddress = action.payload;
 
       return updateCart(state); 
+    },
+    savePaymentMethod: (state, action) => {
+      state.paymentMethod = action.payload;
+
+      return updateCart(state);
     }
   }
 });
 
 // Extract the action creators from the cart slice
-export const { addToCart, removeFromCart, saveShippingAddress } = cartSlice.actions;
+export const { addToCart, removeFromCart, saveShippingAddress, savePaymentMethod } = cartSlice.actions;
 
 // Export the cartSlice reducer into the store - See store.js
 export default cartSlice.reducer;

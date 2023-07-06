@@ -10,6 +10,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ProductPage from './pages/ProductPage';
 import ShippingPage from './pages/ShippingPage';
+import PaymentPage from './pages/PaymentPage';
 import PrivateRoute from './components/PrivateRoute';
 import CartPage from './pages/CartPage';
 import reportWebVitals from './reportWebVitals';
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
             path: "shipping",
             element: <ShippingPage />,
           },
+          {
+            path: "payment",
+            element: <PaymentPage />,
+          }
         ],
       },
     ],
