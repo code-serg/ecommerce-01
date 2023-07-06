@@ -9,8 +9,9 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ProductPage from './pages/ProductPage';
-import CartPage from './pages/CartPage';
 import ShippingPage from './pages/ShippingPage';
+import PrivateRoute from './components/PrivateRoute';
+import CartPage from './pages/CartPage';
 import reportWebVitals from './reportWebVitals';
 import {
   createBrowserRouter,
@@ -43,8 +44,14 @@ const router = createBrowserRouter([
         element: <RegisterPage />,
       },
       {
-        path: "/shipping",
-        element: <ShippingPage />,
+        path: "/",
+        element: <PrivateRoute />,
+        children: [
+          {
+            path: "shipping",
+            element: <ShippingPage />,
+          },
+        ],
       },
     ],
   },
