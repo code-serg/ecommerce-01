@@ -11,6 +11,7 @@ import RegisterPage from './pages/RegisterPage';
 import ProductPage from './pages/ProductPage';
 import ShippingPage from './pages/ShippingPage';
 import PaymentPage from './pages/PaymentPage';
+import PlaceOrderPage from './pages/PlaceOrderPage';
 import PrivateRoute from './components/PrivateRoute';
 import CartPage from './pages/CartPage';
 import reportWebVitals from './reportWebVitals';
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
           {
             path: "payment",
             element: <PaymentPage />,
+          },
+          {
+            path: "placeorder",
+            element: <PlaceOrderPage />,
           }
         ],
       },
