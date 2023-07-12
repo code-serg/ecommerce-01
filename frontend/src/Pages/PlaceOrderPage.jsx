@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch,useSelector } from "react-redux";
-import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
+import { Button, Row, Col, ListGroup, Image, Card, ListGroupItem } from "react-bootstrap";
 import { toast } from "react-toastify";
 import CheckoutSteps from "../components/CheckoutSteps";
 import Message from "../components/Message";
@@ -25,7 +25,50 @@ const PlaceOrderPage = () => {
     <>
       <CheckoutSteps step1 step2 step3 step4 />
       <Row>
-        <Col md={8}> Column </Col>
+        <Col md={8}> Column 
+          <ListGroup variant='flush'>
+            <ListGroup.Item>
+              <h3>Shipping</h3>
+              <p>
+                <strong>Address:</strong>
+                {cart.shippingAddress.address}, {cart.shippingAddress.city} {" "}
+                {cart.shippingAddress.postalCode}, {cart.shippingAddress.country}
+              </p>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <h3>Payment Method</h3>
+              <strong>Method:</strong>
+              {cart.paymentMethod}
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <h3>Order Items:</h3>
+              {cart.cartItems.length === 0 ? (
+                <Message>Your Cart is Empty</Message>
+              ) : ( 
+                <ListGroup>
+                  {cart.cartItems.map((item, index) => (
+                    <ListGroup.Item key={ index }>
+                      <Row>
+                        <Col md={1}>
+                          <Image src={ item.image } alt={ item.name } fluid rounded />
+                        </Col>
+                        <Col>
+                          <Link to={ `/products/${item.product}` }>
+                            { item.name }
+                          </Link>
+                        </Col>
+                        <Col md={4}>
+                          { item.qty } x ${ item.price } = ${ item.qty * item.price }
+                        </Col>
+                      </Row>
+                    </ListGroup.Item>
+                  ))}
+                </ListGroup>
+              )}
+    
+            </ListGroup.Item> 
+          </ListGroup>
+        </Col>
         <Col md={4}> Column </Col>
       </Row>
     </>
