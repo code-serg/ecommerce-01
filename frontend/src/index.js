@@ -9,6 +9,10 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ProductPage from './pages/ProductPage';
+import ShippingPage from './pages/ShippingPage';
+import PaymentPage from './pages/PaymentPage';
+import PlaceOrderPage from './pages/PlaceOrderPage';
+import PrivateRoute from './components/PrivateRoute';
 import CartPage from './pages/CartPage';
 import reportWebVitals from './reportWebVitals';
 import {
@@ -40,7 +44,25 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <RegisterPage />,
-      }
+      },
+      {
+        path: "/",
+        element: <PrivateRoute />,
+        children: [
+          {
+            path: "shipping",
+            element: <ShippingPage />,
+          },
+          {
+            path: "payment",
+            element: <PaymentPage />,
+          },
+          {
+            path: "placeorder",
+            element: <PlaceOrderPage />,
+          }
+        ],
+      },
     ],
   },
 ]);
