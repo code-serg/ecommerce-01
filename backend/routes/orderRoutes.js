@@ -12,7 +12,7 @@ import { authUser, authAdmin } from '../middleware/authMiddleware.js';
 const router = express.Router();
 
 // /api/users - see backend/server.js
-router.route('/').post(addOrderItems).get(authUser, authAdmin, getOrders); // getOrders -> use middleware to enforce admin role
+router.route('/').post(authUser, addOrderItems).get(authUser, authAdmin, getOrders); // getOrders -> use middleware to enforce admin role
 router.route('/myorders').get(authUser, getMyOrders);
 router.route('/:id').get(authUser, authAdmin, getOrderById);
 router.route('/:id/pay').put(authUser, updateOrderToPaid);
