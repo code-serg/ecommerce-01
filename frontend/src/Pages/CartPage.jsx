@@ -61,7 +61,7 @@ const CartPage = () => {
                         addToCartHandler(item, Number(e.target.value))
                       }
                     >
-                      {[...Array(item.countInStock).keys()].map((x) => (  // [0, 1, 2, 3, 4]
+                      {[...Array(item.countInStock).keys()].map((x) => (
                         <option key={x + 1} value={x + 1}>
                           {x + 1}
                         </option>
@@ -88,10 +88,10 @@ const CartPage = () => {
           <ListGroup variant="flush">
             <ListGroup.Item>
               <h3>
-                Subtotal ({ cartItems.reduce((acc, item) => acc + item.qty, 0) })
+                Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
                 items
               </h3>
-              ${ cartItems.reduce((acc, item) => acc + item.qty * item.price, 0).toFixed(2) }
+              ${cartItems.reduce((acc, item) => acc + item.qty * item.price, 0).toFixed(2)}
             </ListGroup.Item>
             <ListGroup.Item>
               <Button
