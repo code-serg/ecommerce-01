@@ -12,6 +12,7 @@ import ProductPage from './pages/ProductPage';
 import ShippingPage from './pages/ShippingPage';
 import PaymentPage from './pages/PaymentPage';
 import PlaceOrderPage from './pages/PlaceOrderPage';
+import OrderPage from './pages/OrderPage';
 import PrivateRoute from './components/PrivateRoute';
 import CartPage from './pages/CartPage';
 import reportWebVitals from './reportWebVitals';
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
           {
             path: "placeorder",
             element: <PlaceOrderPage />,
+          },
+          {
+            path: "/order/:id",
+            element: <OrderPage />,
           }
         ],
       },
