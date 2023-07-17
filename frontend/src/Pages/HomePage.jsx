@@ -14,7 +14,7 @@ const HomePage = () => {
 
   if (error) {
     return (
-      <Message variant="danger">{error.data.message || error.error}</Message>
+      <Message variant="danger">{error?.data?.message || error?.error}</Message>
     );
   }
 

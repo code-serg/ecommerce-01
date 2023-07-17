@@ -1,23 +1,23 @@
-import { useState, useEffect } from 'react';
+import { React, useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'; // dispatch actions and select state from Redux store
 import { Form, Button, Row, Col } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import FormContainer from '../components/FormContainer';
 import Loader from '../components/Loader';
 import { useLoginMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
-import { toast } from 'react-toastify';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   // call the login API endpoint defined in usersApiSlice.js, which in turn calls the login controller in backend/controllers/userController.js
   // response is either the user object or an error object
-  const [login, {isLoading}] = useLoginMutation(); 
+  const [login, { isLoading }] = useLoginMutation();
 
   const { userInfo } = useSelector((state) => state.auth); // get userInfo from Redux store
 
@@ -32,18 +32,18 @@ const LoginPage = () => {
       navigate(redirect);
     }
   }, [userInfo, redirect, navigate]); // navigate, redirect, and userInfo are dependencies
-  
+
   const submitHandler = async (e) => {
     e.preventDefault(); // prevent page from refreshing
 
     try {
       const res = await login({ email, password }).unwrap(); 
-      dispatch(setCredentials({...res, })); // set credentials in Redux store and localStorage
-      navigate(redirect); 
+      dispatch(setCredentials({ ...res })); // set credentials in Redux store and localStorage
+      navigate(redirect);
     } catch (error) {
       toast.error(error?.data?.message || error?.error);
     }
-  }
+  };
 
   return (
     <FormContainer>
@@ -69,10 +69,15 @@ const LoginPage = () => {
           />
         </Form.Group>
 
-        <Button type="submit" disabled={isLoading} variant="primary" className="mt-2">
+        <Button
+          type="submit"
+          disabled={isLoading}
+          variant="primary"
+          className="mt-2"
+        >
           Sign In
         </Button>
-        { isLoading && <Loader /> }
+        {isLoading && <Loader />}
       </Form>
 
       <Row className="py-3">
@@ -84,7 +89,7 @@ const LoginPage = () => {
         </Col>
       </Row>
     </FormContainer>
-  )
-}
+  );
+};
 
 export default LoginPage;
