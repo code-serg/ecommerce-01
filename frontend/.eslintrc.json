@@ -28,7 +28,10 @@
         "arrow-body-style":"off",
         "react/function-component-definition":"off",
         "react/jsx-filename-extension":"off",
-        "react/jsx-no-useless-fragment":"off"
+        "react/jsx-no-useless-fragment":"off",
+        "prefer-arrow-callback":"off",
+        "no-shadow":"off",
+        "import/no-extraneous-dependencies":"off"
     }
 }
 
