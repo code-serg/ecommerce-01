@@ -4,6 +4,7 @@
     "es2020": true
     },
     "extends": [
+        "plugin:react/recommended",
         "airbnb", 
         "airbnb/hooks",
         "prettier"
@@ -19,7 +20,12 @@
         "prettier"
     ],
     "rules": {
-        "prettier/prettier":"warn",
+        "prettier/prettier": [
+            "warn",
+            {
+                "singleQuote": true
+            }
+        ],
         "no-unused-vars":"warn",
         "no-underscore-dangle":"off",
         "import/prefer-default-export":"warn",
