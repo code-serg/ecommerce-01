@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 import './assets/styles/index.css';
 import './assets/styles/bootstrap.custom.css';
-import { Provider } from 'react-redux';
-import store from './store'; // This file configures the Redux store using Redux Toolkit's
+// This file configures the Redux store using Redux Toolkit's
+import store from './store';
 import App from './App';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
@@ -12,54 +15,60 @@ import ProductPage from './pages/ProductPage';
 import ShippingPage from './pages/ShippingPage';
 import PaymentPage from './pages/PaymentPage';
 import PlaceOrderPage from './pages/PlaceOrderPage';
+import OrderPage from './pages/OrderPage';
+import ProfilePage from './pages/ProfilePage';
 import PrivateRoute from './components/PrivateRoute';
 import CartPage from './pages/CartPage';
 import reportWebVitals from './reportWebVitals';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <App />,
     children: [
       {
-        path: "/",
+        path: '/',
         element: <HomePage />,
       },
       {
-        path: "/product/:id",
+        path: '/product/:id',
         element: <ProductPage />,
       },
       {
-        path: "/cart",
+        path: '/cart',
         element: <CartPage />,
       },
       {
-        path: "/login",
+        path: '/login',
         element: <LoginPage />,
       },
       {
-        path: "/register",
+        path: '/register',
         element: <RegisterPage />,
       },
       {
-        path: "/",
+        path: '/',
         element: <PrivateRoute />,
         children: [
           {
-            path: "shipping",
+            path: 'shipping',
             element: <ShippingPage />,
           },
           {
-            path: "payment",
+            path: 'payment',
             element: <PaymentPage />,
           },
           {
-            path: "placeorder",
+            path: 'placeorder',
             element: <PlaceOrderPage />,
+          },
+          {
+            path: '/order/:id',
+            element: <OrderPage />,
+          },
+          {
+            path: '/profile',
+            element: <ProfilePage />,
           }
         ],
       },
@@ -71,13 +80,14 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <PayPalScriptProvider deferLoading>
+        <RouterProvider router={router} />
+      </PayPalScriptProvider>
     </Provider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
-
