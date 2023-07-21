@@ -5,8 +5,10 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   // Retrieve user info from localStorage if available, or set to null
-  userInfo: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null,
-}
+  userInfo: localStorage.getItem('userInfo')
+    ? JSON.parse(localStorage.getItem('userInfo'))
+    : null,
+};
 
 // Create the authentication slice using createSlice from Redux Toolkit
 const authSlice = createSlice({

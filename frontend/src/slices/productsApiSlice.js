@@ -1,8 +1,8 @@
 // Desc: Redux toolkit slice for products api
 // Calls to the backend server are made using this productsApiSlice (uses apiSlice.js as the parent slice)
 
-import { PRODUCTS_URL } from "../constants";
-import { apiSlice } from "./apiSlice"; // Parent slice
+import { PRODUCTS_URL } from '../constants';
+import { apiSlice } from './apiSlice'; // Parent slice
 
 export const productsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -21,5 +21,5 @@ export const productsApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetProductsQuery, useGetProductDetailsQuery } = productsApiSlice;
-
+export const { useGetProductsQuery, useGetProductDetailsQuery } =
+  productsApiSlice;
