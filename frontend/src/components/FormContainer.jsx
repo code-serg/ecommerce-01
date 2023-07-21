@@ -12,6 +12,6 @@ const FormContainer = ({ children }) => {
     </Container>
   );
 };
-FormContainer.propTypes = PropTypes;
+FormContainer.propTypes = PropTypes.func.isRequired;
 
 export default FormContainer;

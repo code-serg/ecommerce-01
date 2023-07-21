@@ -55,6 +55,7 @@ const Rating = ({ value, text }) => {
     </div>
   );
 };
-Rating.propTypes = PropTypes;
+
+Rating.propTypes = PropTypes.func.isRequired;
 
 export default Rating;
