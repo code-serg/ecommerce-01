@@ -46,14 +46,14 @@ const OrderListPage = () => {
               </td>
               <td>
                 {order.isDelivered ? (
-                  order.isDelivered.substring(0, 10)
+                  order.deliveredAt.substring(0, 10)
                 ) : (
                   <FaTimes style={{ color: 'red' }} />
                 )}
               </td>
               <td>
                 <LinkContainer to={`/order/${order._id}`}>
-                  <Button variant="primary" className="btn-sm">
+                  <Button variant="link" className="btn-sm">
                     Details
                   </Button>
                 </LinkContainer>
