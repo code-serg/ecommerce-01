@@ -62,7 +62,7 @@ const ProfilePage = () => {
     }
 
     if (error) {
-      return <Message variant="danger">{errorOrders?.data?.message}</Message>;
+      return <Message variant="danger">{error?.data?.message}</Message>;
     }
 
     if (orders.length === 0) {
