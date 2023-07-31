@@ -27,7 +27,6 @@ const authUser = asyncHandler(async (req, res, next) => {
 
 // Check if user is an admin
 const authAdmin = (req, res, next) => {
-  console.log("req.user: " + req.user);
 
   if (req.user && req.user.isAdmin) {
     next();
