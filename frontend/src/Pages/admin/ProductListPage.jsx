@@ -1,15 +1,33 @@
 import { LinkContainer } from 'react-router-bootstrap';
 import { Table, Button, Row, Col } from 'react-bootstrap';
 import { FaTimes, FaPlus, FaEdit, FaTrash } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 import Message from '../../components/Message';
 import Loader from '../../components/Loader';
-import { useGetProductsQuery } from '../../slices/productsApiSlice';
+import {
+  useGetProductsQuery,
+  useCreateProductMutation,
+} from '../../slices/productsApiSlice';
 
 const ProductListPage = () => {
   const { data: products, isLoading, error } = useGetProductsQuery();
 
+  const [createProduct, { isLoading: loadingCreate }] =
+    useCreateProductMutation();
+
+  const createProductHandler = async () => {
+    if (window.confirm('Creating a new product... correct?')) {
+      try {
+        await createProduct();
+        refetch();
+      } catch (err) {
+        toast.error(err?.data?.message || err?.error);
+      }
+    }
+  };
+
   const deleteHandler = (id) => {
-    if (window.confirm('Are you sure?')) {
+    if (window.confirm('Deleting a product... Are you sure?')) {
       // dispatch(deleteProduct(id));
       console.log(`delete ${id}`);
     }
@@ -17,7 +35,7 @@ const ProductListPage = () => {
 
   // helper function to display the product list
   const displayProductList = () => {
-    if (isLoading) {
+    if (isLoading || loadingCreate) {
       return <Loader />;
     }
 
@@ -73,7 +91,7 @@ const ProductListPage = () => {
           <h3>Products</h3>
         </Col>
         <Col className="text-end">
-          <Button className="btn-sm m-3">
+          <Button className="btn-sm m-3" onClick={createProductHandler}>
             <FaEdit /> Create Product
           </Button>
         </Col>
