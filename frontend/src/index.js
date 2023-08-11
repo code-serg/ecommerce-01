@@ -20,6 +20,7 @@ import OrderPage from './pages/OrderPage';
 import ProfilePage from './pages/ProfilePage';
 import OrderListPage from './pages/admin/OrderListPage';
 import ProductListPage from './pages/admin/ProductListPage';
+import ProductEditPage from './pages/admin/ProductEditPage';
 import PrivateRoute from './components/PrivateRoute';
 import AdminRoute from './components/AdminRoute';
 import reportWebVitals from './reportWebVitals';
@@ -86,6 +87,10 @@ const router = createBrowserRouter([
           {
             path: 'admin/productlist',
             element: <ProductListPage />,
+          },
+          {
+            path: 'admin/product/:id/edit',
+            element: <ProductEditPage />,
           },
         ],
       },

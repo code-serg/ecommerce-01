@@ -87,7 +87,7 @@ const OrderPage = () => {
         refetch();
         toast.success('Payment Successful');
       } catch (err) {
-        toast.error(err?.data?.message || err.message);
+        toast.error(err?.data?.message || err?.error);
       }
     });
   };
