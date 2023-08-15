@@ -9,7 +9,8 @@ const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email }); // findOne() is a mongoose method
 
-  if (user && (await user.matchPassword(password))) { //is user in the db? and password matches? - matchPassword is a method in the user model
+  // check if user exists and password matches
+  if (user && (await user.matchPassword(password))) {
     generateToken(res, user._id);
 
     res.status(200).json({
@@ -44,7 +45,6 @@ const registerUser = asyncHandler(async (req, res) => {
     password,
   });
 
-  // If user is created successfully...
   if (user) {
     generateToken(res, user._id);
 
@@ -75,7 +75,8 @@ const logoutUser = asyncHandler(async (req, res) => {
 // @route   GET /api/users/profile
 // @access  Private
 const getUserProfile = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user._id); // req.user is set in the authUser middleware - see authMiddleware.js
+  // req.user is set in the authUser middleware - see authMiddleware.js
+  const user = await User.findById(req.user._id); 
 
   if (user) {
     res.status(200).json({
@@ -94,17 +95,20 @@ const getUserProfile = asyncHandler(async (req, res) => {
 // @route   PUT /api/users/profile // no need to specify the id. (The user is logged in and the token has all the info we need)
 // @access  Private
 const updateUserProfile = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user._id); // req.user is set in the authUser middleware - see authMiddleware.js
+  const user = await User.findById(req.user._id); 
 
   if (user) {
-    user.name = req.body.name || user.name; // if req.body.name is undefined, then use the existing user.name
+    // if req.body.name is undefined, then use the existing user.name
+    user.name = req.body.name || user.name; 
     user.email = req.body.email || user.email;
 
-    if (req.body.password) { // if the password is being updated
+    // if the password is being updated
+    if (req.body.password) { 
       user.password = req.body.password;
     }
 
-    const updatedUser = await user.save(); // save the updated user to the database
+    // userSchema.pre('save' ... ) will hash the password before saving the user to the database - See userModel.js
+    const updatedUser = await user.save();
 
     generateToken(res, updatedUser._id);
 
@@ -124,28 +128,66 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 // @route   GET /api/users/
 // @access  Private/Admin
 const getUsers = asyncHandler(async (req, res) => {
-  res.send('Get users');
+  const users = await User.find({});
+  res.status(200).json(users);
 });
 
 // @desc    Get user by ID
 // @route   GET /api/users/:id
 // @access  Private/Admin
 const getUserById = asyncHandler(async (req, res) => {
-  res.send('Get user by id');
+  const user = await User.findById(req.params.id).select('-password');
+
+  if (user) {
+    res.status(200).json(user);
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
 });
 
 // @desc    Update user
 // @route   PUT /api/users/:id
 // @access  Private/Admin
 const updateUser = asyncHandler(async (req, res) => {
-  res.send('Update user');
+  const user = await User.findById(req.params.id);
+
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.isAdmin = Boolean(req.body.isAdmin);
+
+    const updatedUser = await user.save();
+
+    res.status(200).json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
 });
 
 // @desc    Delete user
 // @route   DELETE /api/users/:id
 // @access  Private/Admin
 const deleteUser = asyncHandler(async (req, res) => {
-  res.send('Delete user');
+  const user = await User.findById(req.params.id);
+
+  if (user) {
+    if (user.isAdmin) {
+      res.status(400);
+      throw new Error('Cannot delete admin user');
+    }
+    await User.deleteOne({ _id: user._id });
+    res.status(200).json({ message: 'User removed' });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
 });
 
 export { loginUser, registerUser, logoutUser, getUserProfile, updateUserProfile, getUsers, getUserById, updateUser, deleteUser };
