@@ -7,13 +7,17 @@ import Loader from '../../components/Loader';
 import {
   useGetProductsQuery,
   useCreateProductMutation,
+  useDeleteProductMutation,
 } from '../../slices/productsApiSlice';
 
 const ProductListPage = () => {
-  const { data: products, isLoading, error } = useGetProductsQuery();
+  const { data: products, isLoading, error, refetch } = useGetProductsQuery();
 
-  const [createProduct, { isLoading: loadingCreate }] =
+  const [createProduct, { isLoading: isLoadingCreate }] =
     useCreateProductMutation();
+
+  const [deleteProduct, { isLoading: isLoadingDelete }] =
+    useDeleteProductMutation();
 
   const createProductHandler = async () => {
     if (window.confirm('Creating a new product... correct?')) {
@@ -26,16 +30,21 @@ const ProductListPage = () => {
     }
   };
 
-  const deleteHandler = (id) => {
+  const deleteHandler = async (id) => {
     if (window.confirm('Deleting a product... Are you sure?')) {
-      // dispatch(deleteProduct(id));
-      console.log(`delete ${id}`);
+      try {
+        await deleteProduct(id);
+        toast.success('Product deleted');
+        refetch();
+      } catch (err) {
+        toast.error(err?.data?.message || err?.error);
+      }
     }
   };
 
   // helper function to display the product list
   const displayProductList = () => {
-    if (isLoading || loadingCreate) {
+    if (isLoading || isLoadingCreate || isLoadingDelete) {
       return <Loader />;
     }
 
