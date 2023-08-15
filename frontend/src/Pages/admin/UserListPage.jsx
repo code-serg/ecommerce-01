@@ -1,28 +1,40 @@
 import { LinkContainer } from 'react-router-bootstrap';
 import { Table, Button } from 'react-bootstrap';
 import { FaTimes, FaTrash, FaEdit, FaCheck } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 import Message from '../../components/Message';
 import Loader from '../../components/Loader';
-import { useGetUsersQuery } from '../../slices/usersApiSlice';
+import {
+  useGetUsersQuery,
+  useDeleteUserMutation,
+} from '../../slices/usersApiSlice';
 
 const UserListPage = () => {
   const { data: users, isLoading, error, refetch } = useGetUsersQuery();
 
+  const [deleteUser, { isLoading: isLoadingDelete }] = useDeleteUserMutation();
+
+  const deleteUserHandler = async (id) => {
+    if (window.confirm('Deleting a user... Are you sure?')) {
+      try {
+        await deleteUser(id);
+        toast.success('User deleted');
+        refetch();
+      } catch (err) {
+        toast.error(err?.data?.message || err?.error);
+      }
+    }
+  };
+
   // Helper function to render the orders section
   const renderUsers = () => {
-    if (isLoading) {
+    if (isLoading || isLoadingDelete) {
       return <Loader />;
     }
 
     if (error) {
       return <Message variant="danger">{error}</Message>;
     }
-
-    const deleteUserHandler = (id) => {
-      if (window.confirm('Deleting a user... Are you sure?')) {
-        console.log('deleting user');
-      }
-    };
 
     return (
       <Table striped hover responsive className="table-sm">
