@@ -22,6 +22,7 @@ import OrderListPage from './pages/admin/OrderListPage';
 import ProductListPage from './pages/admin/ProductListPage';
 import ProductEditPage from './pages/admin/ProductEditPage';
 import UserListPage from './pages/admin/UserListPage';
+import UserEditPage from './pages/admin/UserEditPage';
 import PrivateRoute from './components/PrivateRoute';
 import AdminRoute from './components/AdminRoute';
 import reportWebVitals from './reportWebVitals';
@@ -96,6 +97,10 @@ const router = createBrowserRouter([
           {
             path: 'admin/userlist',
             element: <UserListPage />,
+          },
+          {
+            path: 'admin/user/:id/edit',
+            element: <UserEditPage />,
           },
         ],
       },
