@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Form, Button, Row, Col } from 'react-bootstrap';
+import { Form, Button, Col } from 'react-bootstrap';
 import FormContainer from '../components/FormContainer';
-import CheckoutSteps from '../components/CheckoutSteps';
 import { savePaymentMethod } from '../slices/cartSlice';
-
 
 const PaymentPage = () => {
   const [paymentMethod, setPaymentMethod] = useState('PayPal');
@@ -27,12 +25,12 @@ const PaymentPage = () => {
     e.preventDefault();
     dispatch(savePaymentMethod(paymentMethod));
     navigate('/placeorder');
-  }
-  
+  };
+
   return (
     <FormContainer>
       <h2>Payment Method</h2>
-      <Form onSubmit={ submitHandler }>
+      <Form onSubmit={submitHandler}>
         <Form.Group>
           <Form.Label as="legend">Select Method</Form.Label>
           <Col>
@@ -54,7 +52,7 @@ const PaymentPage = () => {
         </Button>
       </Form>
     </FormContainer>
-  )
-}
+  );
+};
 
-export default PaymentPage
+export default PaymentPage;

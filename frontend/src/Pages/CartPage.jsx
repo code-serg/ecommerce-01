@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -10,7 +9,7 @@ import {
   Button,
   Card,
 } from 'react-bootstrap';
-import { FaCheck, FaTrash } from 'react-icons/fa';
+import { FaTrash } from 'react-icons/fa';
 import { addToCart, removeFromCart } from '../slices/cartSlice';
 import Message from '../components/Message';
 
@@ -91,7 +90,10 @@ const CartPage = () => {
                 Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
                 items
               </h3>
-              ${cartItems.reduce((acc, item) => acc + item.qty * item.price, 0).toFixed(2)}
+              $
+              {cartItems
+                .reduce((acc, item) => acc + item.qty * item.price, 0)
+                .toFixed(2)}
             </ListGroup.Item>
             <ListGroup.Item>
               <Button

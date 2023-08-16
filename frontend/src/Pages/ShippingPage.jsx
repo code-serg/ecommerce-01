@@ -1,20 +1,22 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { Form, Button } from "react-bootstrap";
-import FormContainer from "../components/FormContainer";
-import CheckoutSteps from "../components/CheckoutSteps";
-import { saveShippingAddress } from "../slices/cartSlice";
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { Form, Button } from 'react-bootstrap';
+import FormContainer from '../components/FormContainer';
+import CheckoutSteps from '../components/CheckoutSteps';
+import { saveShippingAddress } from '../slices/cartSlice';
 
 const ShippingPage = () => {
   // get cart from redux store - check it for existing shipping address data
-  const cart = useSelector(state => state.cart);
+  const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
 
   // initialize state
   const [address, setAddress] = useState(shippingAddress?.address || '');
   const [city, setCity] = useState(shippingAddress?.city || '');
-  const [postalCode, setPostalCode] = useState(shippingAddress?.postalCode || '');
+  const [postalCode, setPostalCode] = useState(
+    shippingAddress?.postalCode || '',
+  );
   const [country, setCountry] = useState(shippingAddress?.country || '');
 
   // initialize navigate and dispatch
@@ -28,7 +30,7 @@ const ShippingPage = () => {
     dispatch(saveShippingAddress({ address, city, postalCode, country }));
     // navigate to payment page
     navigate('/payment');
-  }
+  };
 
   return (
     <FormContainer>
@@ -79,12 +81,9 @@ const ShippingPage = () => {
         <Button type="submit" variant="primary" className="my-2">
           Continue
         </Button>
-        
-
       </Form>
-
     </FormContainer>
-  )
-}
+  );
+};
 
 export default ShippingPage;

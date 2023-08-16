@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'; // dispatch actions and select state from Redux store
 import { Form, Button, Row, Col } from 'react-bootstrap';
@@ -22,7 +22,7 @@ const LoginPage = () => {
   const { userInfo } = useSelector((state) => state.auth); // get userInfo from Redux store
 
   // define the redirect param if user is logged in - get it from the URL
-  const { search } = useLocation();  
+  const { search } = useLocation();
   const searchParam = new URLSearchParams(search);
   const redirect = searchParam.get('redirect') || '/'; // get redirect query param or default to '/'
 
@@ -37,7 +37,7 @@ const LoginPage = () => {
     e.preventDefault(); // prevent page from refreshing
 
     try {
-      const res = await login({ email, password }).unwrap(); 
+      const res = await login({ email, password }).unwrap();
       dispatch(setCredentials({ ...res })); // set credentials in Redux store and localStorage
       navigate(redirect);
     } catch (error) {
@@ -82,7 +82,7 @@ const LoginPage = () => {
 
       <Row className="py-3">
         <Col>
-          New Customer? {' '}
+          New Customer?{' '}
           <Link to={redirect ? `/register?redirect=${redirect}` : '/redirect'}>
             Register
           </Link>

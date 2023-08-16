@@ -5,8 +5,10 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   // Retrieve user info from localStorage if available, or set to null
-  userInfo: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null,
-}
+  userInfo: localStorage.getItem('userInfo')
+    ? JSON.parse(localStorage.getItem('userInfo'))
+    : null,
+};
 
 // Create the authentication slice using createSlice from Redux Toolkit
 const authSlice = createSlice({
@@ -19,7 +21,7 @@ const authSlice = createSlice({
       localStorage.setItem('userInfo', JSON.stringify(action.payload)); // Store user info in localStorage
     },
     // Reducer for logging out
-    logout: (state, action) => {
+    logout: (state) => {
       state.userInfo = null; // Remove user info from the state
       localStorage.removeItem('userInfo'); // Remove user info from localStorage
     },

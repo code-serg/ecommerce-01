@@ -6,6 +6,7 @@
     "extends": [
         "plugin:react/recommended",
         "airbnb", 
+        "plugin:react/jsx-runtime", // for react 17, must be placed after airbnb
         "airbnb/hooks",
         "prettier"
     ],
@@ -24,12 +25,13 @@
             "warn",
             {
                 "singleQuote": true
+                // "jsxSingleQuote": true
             }
         ],
         "no-unused-vars":"warn",
         "no-underscore-dangle":"off",
         "import/prefer-default-export":"warn",
-        "no-undef":"warn",
+        "no-undef":"off",
         "no-param-reassign":"off",
         "arrow-body-style":"off",
         "react/function-component-definition":"off",

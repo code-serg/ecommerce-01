@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'; // dispatch actions and select state from Redux store
 import { Form, Button, Row, Col } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import FormContainer from '../components/FormContainer';
 import Loader from '../components/Loader';
 import { useRegisterMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
-import { toast } from 'react-toastify';
 
 const RegisterPage = () => {
   const [name, setName] = useState('');
@@ -14,17 +14,17 @@ const RegisterPage = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   // call the login API endpoint defined in usersApiSlice.js, which in turn calls the login controller in backend/controllers/userController.js
   // response is either the user object or an error object
-  const [register, {isLoading}] = useRegisterMutation(); 
+  const [register, { isLoading }] = useRegisterMutation();
 
   const { userInfo } = useSelector((state) => state.auth); // get userInfo from Redux store
 
   // define the redirect param if user is logged in - get it from the URL
-  const { search } = useLocation();  
+  const { search } = useLocation();
   const searchParam = new URLSearchParams(search);
   const redirect = searchParam.get('redirect') || '/'; // get redirect query param or default to '/'
 
@@ -34,23 +34,23 @@ const RegisterPage = () => {
       navigate(redirect);
     }
   }, [userInfo, redirect, navigate]); // navigate, redirect, and userInfo are dependencies
-  
+
   const submitHandler = async (e) => {
     e.preventDefault(); // prevent page from refreshing
 
     if (password !== confirmPassword) {
       toast.error('Passwords do not match');
       return;
-    } else {
-      try {
-        const res = await register({name, email, password }).unwrap(); 
-        dispatch(setCredentials({...res, })); // set credentials in Redux store and localStorage
-        navigate(redirect); 
-      } catch (error) {
-        toast.error(error?.data?.message || error?.error);
-      }
     }
-  }
+
+    try {
+      const res = await register({ name, email, password }).unwrap();
+      dispatch(setCredentials({ ...res })); // set credentials in Redux store and localStorage
+      navigate(redirect);
+    } catch (error) {
+      toast.error(error?.data?.message || error?.error);
+    }
+  };
 
   return (
     <FormContainer>
@@ -96,22 +96,27 @@ const RegisterPage = () => {
           />
         </Form.Group>
 
-        <Button type="submit" disabled={isLoading} variant="primary" className="mt-2">
+        <Button
+          type="submit"
+          disabled={isLoading}
+          variant="primary"
+          className="mt-2"
+        >
           Register
         </Button>
-        { isLoading && <Loader /> }
+        {isLoading && <Loader />}
       </Form>
 
       <Row className="py-3">
         <Col>
-          Already Have an Account? {' '}
+          Already Have an Account?{' '}
           <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>
             Login
           </Link>
         </Col>
       </Row>
     </FormContainer>
-  )
-}
+  );
+};
 
 export default RegisterPage;

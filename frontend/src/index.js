@@ -15,10 +15,16 @@ import ProductPage from './pages/ProductPage';
 import ShippingPage from './pages/ShippingPage';
 import PaymentPage from './pages/PaymentPage';
 import PlaceOrderPage from './pages/PlaceOrderPage';
+import CartPage from './pages/CartPage';
 import OrderPage from './pages/OrderPage';
 import ProfilePage from './pages/ProfilePage';
+import OrderListPage from './pages/admin/OrderListPage';
+import ProductListPage from './pages/admin/ProductListPage';
+import ProductEditPage from './pages/admin/ProductEditPage';
+import UserListPage from './pages/admin/UserListPage';
+import UserEditPage from './pages/admin/UserEditPage';
 import PrivateRoute from './components/PrivateRoute';
-import CartPage from './pages/CartPage';
+import AdminRoute from './components/AdminRoute';
 import reportWebVitals from './reportWebVitals';
 
 const router = createBrowserRouter([
@@ -69,7 +75,33 @@ const router = createBrowserRouter([
           {
             path: '/profile',
             element: <ProfilePage />,
-          }
+          },
+        ],
+      },
+      {
+        path: '/',
+        element: <AdminRoute />,
+        children: [
+          {
+            path: 'admin/orderlist',
+            element: <OrderListPage />,
+          },
+          {
+            path: 'admin/productlist',
+            element: <ProductListPage />,
+          },
+          {
+            path: 'admin/product/:id/edit',
+            element: <ProductEditPage />,
+          },
+          {
+            path: 'admin/userlist',
+            element: <UserListPage />,
+          },
+          {
+            path: 'admin/user/:id/edit',
+            element: <UserEditPage />,
+          },
         ],
       },
     ],
