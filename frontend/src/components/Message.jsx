@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Alert } from 'react-bootstrap';
 
-const Message = ({ variant, children }) => {
+const Message = ({ variant = 'info', children }) => {
   return <Alert variant={variant}>{children}</Alert>;
 };
 Message.propTypes = PropTypes.func.isRequired;
