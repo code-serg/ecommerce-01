@@ -95,6 +95,10 @@ const router = createBrowserRouter([
             element: <ProductListPage />,
           },
           {
+            path: 'admin/productlist/:pageNumber',
+            element: <ProductListPage />,
+          },
+          {
             path: 'admin/product/:id/edit',
             element: <ProductEditPage />,
           },
