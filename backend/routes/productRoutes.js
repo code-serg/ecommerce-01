@@ -1,7 +1,8 @@
 import express from 'express';
 import { 
   getProducts, 
-  getProductById, 
+  getProductById,
+  getTopProducts,
   createProduct, 
   updateProduct, 
   deleteProduct,
@@ -15,6 +16,10 @@ const router = express.Router();
 router
   .route('/').get(getProducts)
   .post(authUser, authAdmin, createProduct);
+// "/top" goes above "/:id" so that is not treated as an id
+router
+  .route('/top')
+  .get(getTopProducts);
 router
   .route('/:id')
   .get(getProductById)

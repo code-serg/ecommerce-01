@@ -5,6 +5,7 @@ import Product from '../components/Product';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Paginate from '../components/Paginate';
+import ProductCarousel from '../components/ProductCarousel';
 
 const HomePage = () => {
   const { keyword, pageNumber } = useParams();
@@ -25,12 +26,14 @@ const HomePage = () => {
 
   return (
     <>
-      {keyword && (
+      {!keyword ? (
+        <ProductCarousel />
+      ) : (
         <Link to="/" className="btn btn-light mb-3">
           Go Back
         </Link>
       )}
-      <h2>Latest Products</h2>
+      {/* <h2>Latest Products</h2> */}
       <Row>
         {data.products.map((product) => (
           <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
