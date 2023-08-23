@@ -12,7 +12,9 @@ const ProductCarousel = () => {
   }
 
   if (error) {
-    return <Message variant="danger">{error}</Message>;
+    return (
+      <Message variant="danger">{error?.data?.message || error.error}</Message>
+    );
   }
 
   return (
