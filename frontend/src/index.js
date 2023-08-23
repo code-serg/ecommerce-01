@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
+import { HelmetProvider } from 'react-helmet-async';
 import './assets/styles/index.css';
 import './assets/styles/bootstrap.custom.css';
 // This file configures the Redux store using Redux Toolkit's
@@ -34,6 +35,18 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
+        element: <HomePage />,
+      },
+      {
+        path: '/search/:keyword',
+        element: <HomePage />,
+      },
+      {
+        path: '/search/:keyword/page/:pageNumber',
+        element: <HomePage />,
+      },
+      {
+        path: '/page/:pageNumber',
         element: <HomePage />,
       },
       {
@@ -91,6 +104,10 @@ const router = createBrowserRouter([
             element: <ProductListPage />,
           },
           {
+            path: 'admin/productlist/:pageNumber',
+            element: <ProductListPage />,
+          },
+          {
             path: 'admin/product/:id/edit',
             element: <ProductEditPage />,
           },
@@ -111,11 +128,13 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <PayPalScriptProvider deferLoading>
-        <RouterProvider router={router} />
-      </PayPalScriptProvider>
-    </Provider>
+    <HelmetProvider>
+      <Provider store={store}>
+        <PayPalScriptProvider deferLoading>
+          <RouterProvider router={router} />
+        </PayPalScriptProvider>
+      </Provider>
+    </HelmetProvider>
   </React.StrictMode>,
 );
 

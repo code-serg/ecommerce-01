@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { Form, Button, Row, Col } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import Message from '../../components/Message';
 import Loader from '../../components/Loader';
@@ -37,7 +36,6 @@ const ProductEditPage = () => {
     useUploadProductImageMutation();
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (product) {
@@ -90,7 +88,7 @@ const ProductEditPage = () => {
 
   // helper function to display form
   const renderForm = () => {
-    if (isLoading) {
+    if (isLoading || isLoadingUpload) {
       return <Loader />;
     }
 

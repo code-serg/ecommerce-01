@@ -2,14 +2,14 @@ import mongoose from "mongoose";
 
 // reviewSchema will be a subdocument of productSchema
 const reviewSchema = mongoose.Schema({
-  // user who created the review
+  // User ID of reviewer
   user: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     // reference to the User model
     ref: 'User',
   },
-  // what's this??  Title of the review?
+  // User Name of reviewer
   name: {
     type: String,
     required: true,
@@ -31,7 +31,7 @@ const reviewSchema = mongoose.Schema({
 
 // Define the productSchema
 const productSchema = new mongoose.Schema({
-  // user who created the product
+  // id of user who created the product
   user: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
