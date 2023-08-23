@@ -8,6 +8,7 @@ import {
   deleteProduct,
   createProductReview,
 } from '../controllers/productController.js';
+import checkObjectId from '../middleware/checkObjectId.js';
 import { authUser, authAdmin } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
@@ -22,11 +23,11 @@ router
   .get(getTopProducts);
 router
   .route('/:id')
-  .get(getProductById)
-  .put(authUser, authAdmin, updateProduct)
-  .delete(authUser, authAdmin, deleteProduct);
+  .get(checkObjectId, getProductById)
+  .put(authUser, authAdmin, checkObjectId, updateProduct)
+  .delete(authUser, authAdmin, checkObjectId, deleteProduct);
 router
   .route('/:id/reviews')
-  .post(authUser, createProductReview);
+  .post(authUser, checkObjectId, createProductReview);
 
 export default router;
