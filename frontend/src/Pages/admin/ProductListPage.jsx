@@ -15,7 +15,9 @@ import {
 const ProductListPage = () => {
   const { pageNumber } = useParams();
 
-  const { data, isLoading, error, refetch } = useGetProductsQuery(pageNumber);
+  const { data, isLoading, error, refetch } = useGetProductsQuery({
+    pageNumber,
+  });
 
   const [createProduct, { isLoading: isLoadingCreate }] =
     useCreateProductMutation();
