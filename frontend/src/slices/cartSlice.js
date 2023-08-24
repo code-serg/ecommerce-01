@@ -54,6 +54,7 @@ const cartSlice = createSlice({
 
       return updateCart(state);
     },
+    resetCart: (state) => initialState,
   },
 });
 
@@ -64,6 +65,7 @@ export const {
   saveShippingAddress,
   savePaymentMethod,
   clearCartItems,
+  resetCart,
 } = cartSlice.actions;
 
 // Export the cartSlice reducer into the store - See store.js

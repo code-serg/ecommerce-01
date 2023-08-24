@@ -19,11 +19,15 @@ const authSlice = createSlice({
     setCredentials: (state, action) => {
       state.userInfo = action.payload; // Update user info in the state
       localStorage.setItem('userInfo', JSON.stringify(action.payload)); // Store user info in localStorage
+
+      const expirationTime = new Date().getTime() + 30 * 24 * 60 * 60 * 1000; // 30 days
+      localStorage.setItem('expirationTime', expirationTime);
     },
+
     // Reducer for logging out
     logout: (state) => {
       state.userInfo = null; // Remove user info from the state
-      localStorage.removeItem('userInfo'); // Remove user info from localStorage
+      localStorage.clear(); // clear cart data from localStorage
     },
   },
 });

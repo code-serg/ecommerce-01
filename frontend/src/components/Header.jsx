@@ -9,6 +9,7 @@ import Message from './Message';
 import logo from '../assets/logo.png';
 import { useLogoutMutation } from '../slices/usersApiSlice';
 import { logout } from '../slices/authSlice';
+import { resetCart } from '../slices/cartSlice';
 
 const Header = () => {
   const { cartItems } = useSelector((state) => state.cart); // 'cart' - cartSliceReducer key in store.js
@@ -23,6 +24,7 @@ const Header = () => {
     try {
       await logoutApiCall().unwrap();
       dispatch(logout()); // remove credentials from Redux store and localStorage
+      dispatch(resetCart()); // remove cart items from Redux store and localStorage
       navigate('/'); // redirect to home page
     } catch (error) {
       toast.error(
