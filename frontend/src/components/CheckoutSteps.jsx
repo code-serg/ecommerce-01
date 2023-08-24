@@ -44,6 +44,7 @@ const CheckoutSteps = ({ step1, step2, step3, step4 }) => {
     </Nav>
   );
 };
-CheckoutSteps.propTypes = PropTypes.func.isRequired;
+
+CheckoutSteps.propTypes = PropTypes.bool.isRequired;
 
 export default CheckoutSteps;

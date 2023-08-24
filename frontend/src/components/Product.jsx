@@ -26,6 +26,7 @@ const Product = ({ product }) => {
     </Card>
   );
 };
+
 Product.propTypes = PropTypes.object.isRequired;
 
 export default Product;
