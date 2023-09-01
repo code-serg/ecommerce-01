@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import SearchBox from './SearchBox';
 import Message from './Message';
-import logo from '../assets/logo.png';
+import logo from '../assets/logo-cs.png';
 import { useLogoutMutation } from '../slices/usersApiSlice';
 import { logout } from '../slices/authSlice';
 import { resetCart } from '../slices/cartSlice';
@@ -42,7 +42,7 @@ const Header = () => {
           <LinkContainer to="/">
             <Navbar.Brand>
               <img src={logo} alt="logo" width="50px" height="50px" />
-              GuuVee
+              CodeSerg MERN
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
