@@ -42,7 +42,7 @@ const Header = () => {
           <LinkContainer to="/">
             <Navbar.Brand>
               <img src={logo} alt="logo" width="50px" height="50px" />
-              CodeSerg MERN
+              <span className="ms-2">codeSerg - MERN</span>
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />

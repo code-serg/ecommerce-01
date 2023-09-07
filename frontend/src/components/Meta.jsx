@@ -12,7 +12,7 @@ const Meta = ({ title, description, keywords }) => {
 };
 
 Meta.defaultProps = {
-  title: 'GuuVee',
+  title: 'codeSerg',
   description: 'Awesome e-commerce site!',
   keywords: 'in the works...',
 };
