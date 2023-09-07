@@ -147,7 +147,7 @@ const ProductPage = () => {
                 )}
                 <ListGroup.Item>
                   <Button
-                    className="btn-block"
+                    className="btn-block bg-dark border-0 px-3 "
                     type="button"
                     disabled={product.countInStock === 0}
                     onClick={addToCartHandler}
@@ -178,11 +178,13 @@ const ProductPage = () => {
     }
 
     return (
-      <Row className="review">
+      <Row className="review mt-4">
         <Col md={6}>
-          <h3>Reviews</h3>
-          {product.reviews.length === 0 && <Message>No Reviews</Message>}
           <ListGroup variant="flush">
+            <ListGroup.Item>
+              <h3>Reviews</h3>
+              {product.reviews.length === 0 && <Message>No Reviews</Message>}
+            </ListGroup.Item>
             {product.reviews.map((review) => (
               <ListGroup.Item key={review._id}>
                 <strong> {review.name} </strong>
@@ -195,7 +197,7 @@ const ProductPage = () => {
               <h3>Write a Product Review</h3>
               {userInfo ? (
                 <Form onSubmit={submitReviewHandler}>
-                  <Form.Group controlId="rating" className="my-2">
+                  <Form.Group controlId="rating">
                     <Form.Label>Rating</Form.Label>
                     <Form.Control
                       as="select"
@@ -241,9 +243,13 @@ const ProductPage = () => {
 
   return (
     <>
-      <Link className="btn btn-light my-3" to="/">
-        Go Back
-      </Link>
+      <Button
+        type="button"
+        className="btn-block bg-dark border-0 mb-4 px-3"
+        onClick={() => navigate('/')}
+      >
+        Back To Shopping
+      </Button>
       {renderProduct()}
       {renderProductReview()}
     </>

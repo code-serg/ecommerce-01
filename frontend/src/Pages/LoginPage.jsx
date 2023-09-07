@@ -72,8 +72,7 @@ const LoginPage = () => {
         <Button
           type="submit"
           disabled={isLoading}
-          variant="primary"
-          className="mt-2"
+          className="btn-block bg-dark border-0 mt-2 px-3"
         >
           Sign In
         </Button>
