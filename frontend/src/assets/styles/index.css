@@ -23,6 +23,15 @@ main {
   white-space: nowrap; /* Prevent wrapping */
 }
 
+.product-image-container {
+  height: 200px;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.15);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
 table td,
 table th {
   text-align: center;
