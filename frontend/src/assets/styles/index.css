@@ -53,10 +53,9 @@ table th {
 }
 
 .carousel-caption {
-  /* position: absolute;
-  width: 100%;
-  left: 0;
-  right: 0;
-  bottom: 0; */
-  background: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  left: 200;
+  right: 10;
+  bottom: 0;
+  /* background: rgba(0, 0, 0, 0.5); */
 }
