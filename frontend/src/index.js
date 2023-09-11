@@ -9,7 +9,7 @@ import './assets/styles/bootstrap.custom.css';
 // This file configures the Redux store using Redux Toolkit's
 import store from './store';
 import App from './App';
-import HomePage from './pages/HomePagE';
+import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ProductPage from './pages/ProductPage';
