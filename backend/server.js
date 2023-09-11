@@ -16,13 +16,13 @@ connectDB();
 
 const app = express();
 
-// Parse cookies - middleware
-app.use(cookieParser()); // allows use of request.cookies
 
 // Accept JSON data in the body
 app.use(express.json());
 // Accept form data in the body
 app.use(express.urlencoded({ extended: true }));
+// Parse cookies - middleware
+app.use(cookieParser()); // allows use of request.cookies
 
 // Routes
 app.use('/api/products', productRoutes);
@@ -45,18 +45,15 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '/frontend/build')));
 
   // Serve the index.html file if we hit any route that is not an API route
-  app.get('*', (req, res) => {
-    // Send the index.html file
-    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
-  });
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+  );
 } else {
   // If not in production, use the development build
   app.get('/', (req, res) => {
     res.send('API server is running');
   });
 }
-
-
 
 app.use(notFound);
 app.use(errorHandler);
