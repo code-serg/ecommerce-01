@@ -40,7 +40,7 @@ It offers a modern shopping experience, integrating features like product search
 - **Password Security**: bCrypt.
 - **Styling**: Bootstrap.
 
-## Installation
+## Installation (dev/local environment)
 
 1. Clone the repository: <br>
    `git clone https://github.com/code-serg/ecommerce-01`
