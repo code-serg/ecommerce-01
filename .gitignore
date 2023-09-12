@@ -11,6 +11,9 @@ node_modules
 # production
 /build
 frontend/build
+frontend/.eslintrc.json
+frontend/.eslintrc2.json
+frontend/.prettierrc
 
 # misc
 .DS_Store
