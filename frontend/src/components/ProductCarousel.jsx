@@ -26,7 +26,7 @@ const ProductCarousel = () => {
               src={product.image}
               alt={product.name}
               fluid
-              style={{ maxHeight: '300px' }}
+              style={{ maxHeight: '200px' }}
             />
             <Carousel.Caption className="carousel-caption">
               <h4>
