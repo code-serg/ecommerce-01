@@ -20,7 +20,7 @@ MERN Commerce is a web commerce platform built with the MERN stack. <br>
 It offers a modern shopping experience, integrating features like product search, a carousel showcasing top-rated products, user reviews, and an admin panel for user and product management.
 
 <p align="center">
-   <img src="frontend/public/codeSerg-MERN.png" alt="Screenshot of the app" width="800">
+   <img src="frontend/public/Mern-commerce.png" alt="Screenshot of the app" width="800">
 </p>
 
 ## Features
