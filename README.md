@@ -1,6 +1,6 @@
 <div style="background-color: #0D1526; display: flex; justify-content: center; align-items: center; padding: 10px; margin-bottom: 10px">
   <p align="center">
-    <img src="frontend/public/logo-cs.png" width="50" alt="logo">
+    <img src="frontend/src/assets/logo-mc.png" width="50" alt="logo">
   </p>
   <p align="center">
     <img src="https://img.shields.io/github/package-json/dependency-version/code-serg/ecommerce-01/react?filename=frontend%2Fpackage.json" alt="react-version">
