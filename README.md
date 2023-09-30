@@ -23,6 +23,11 @@ It offers a modern shopping experience, integrating features like product search
    <img src="frontend/public/Mern-commerce.png" alt="Screenshot of the app" width="800">
 </p>
 
+## Live Site
+
+- Deployed on Render (Render.com - Sites can spin down with inactivity - May take a few minutes to spin back up)
+- App link: https://mern-commerce-7fsy.onrender.com
+
 ## Features
 
 - **Product Search**: Enables users to swiftly locate desired products.
@@ -78,10 +83,6 @@ It offers a modern shopping experience, integrating features like product search
   - User management: View, modify, or remove users.
   - Product management: Add, update, or delete products.
 
-## Issues
-
-Encounter a bug or have a feature recommendation? [Open an issue](https://github.com/code-serg/ecommerce-01/issues) to let us know.
-
 ## Improvements
 
 - Implement catch-all URL redirect.
@@ -92,7 +93,7 @@ Encounter a bug or have a feature recommendation? [Open an issue](https://github
 
 ## Credits
 
-Thanks to Traversy Media for the in depth ecommerce course with detailed lessons.
+Thanks to Traversy Media for the in depth walk-through on a MERN-based ecommerce. Cheers!
 
 ## License
 
